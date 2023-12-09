@@ -1,31 +1,50 @@
 plugins {
     id 'java'
-    id 'io.quarkus'
+    id 'io.quarkus' version "${quarkusPluginVersion}"
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
+allprojects {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
 }
 
 dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-    implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
-    implementation 'io.quarkus:quarkus-rest-client-reactive'
-    implementation 'io.quarkus:quarkus-resteasy-reactive'
-    implementation 'io.quarkus:quarkus-jackson'
-    implementation 'io.quarkus:quarkus-rest-client-reactive-jackson'
     implementation 'io.quarkus:quarkus-arc'
-    testImplementation 'io.quarkus:quarkus-junit5'
-    testImplementation 'io.rest-assured:rest-assured'
+    implementation project(':product-service')
 }
 
 group 'com.minhquan'
 version '1.0.0-SNAPSHOT'
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+subprojects {
+    apply plugin: 'java'
+
+    dependencies {
+        implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+
+        implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
+        implementation 'io.quarkus:quarkus-rest-client-reactive'
+        implementation 'io.quarkus:quarkus-resteasy-reactive'
+        implementation 'io.quarkus:quarkus-jackson'
+        implementation 'io.quarkus:quarkus-rest-client-reactive-jackson'
+        implementation 'io.quarkus.arc:arc'
+
+        compileOnly 'org.projectlombok:lombok:1.18.30'
+
+        testImplementation 'io.quarkus:quarkus-junit5'
+        testImplementation 'io.rest-assured:rest-assured'
+    }
 }
 
 test {
