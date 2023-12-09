@@ -22,6 +22,7 @@ dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-arc'
     implementation project(':product-service')
+    implementation project(':common-lib')
 }
 
 group 'com.minhquan'
