@@ -10,4 +10,5 @@ pluginManagement {
 }
 rootProject.name='fashionshop'
 include 'product-service'
+include 'common-lib'
 
