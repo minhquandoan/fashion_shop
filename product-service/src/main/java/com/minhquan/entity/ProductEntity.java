@@ -1,23 +1,34 @@
 package com.minhquan.entity;
 
-import com.minhquan.model.Image;
+import com.minhquan.audit.AuditListener;
+import com.minhquan.audit.Auditable;
 import com.minhquan.model.SqlModel;
-import jakarta.json.Json;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class ProductEntity {
+@Builder
+@Entity
+@EntityListeners(AuditListener.class)
+@Table(name = "product")
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductEntity implements Auditable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
     private String description;
 
-    private Image[] images;
-
-    private Json properties;
-
-    private Variant[] variants;
-
-    private SqlModel model; // Enhance when use sql data
+    private SqlModel audit; // Enhance when use sql data
 }
