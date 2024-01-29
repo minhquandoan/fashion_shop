@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 @Getter
@@ -15,13 +17,14 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class ProductDto {
     @Schema(
             name = "Id",
             description = "Unique ID of Product",
             readOnly = true
     )
-    private Long id;
+    private String id;
 
     private String name;
 
@@ -42,10 +45,17 @@ public class ProductDto {
 
     public static ProductDto toDto(Product entity) {
         return ProductDto.builder()
-                .id(entity.getId())
+                .id(String.valueOf(entity.getId()))
                 .name(entity.getName())
                 .description(entity.getDescription())
-                .erpId(entity.getVariant().getErpId())
+                // .erpId(entity.getVariant().getErpId())
                 .build();
+    }
+
+    public static Product updateEntity(ProductDto dto, Product entity) {
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+
+        return entity;
     }
 }

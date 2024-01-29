@@ -1,9 +1,10 @@
 package com.minhquan.entity;
 
+import java.util.UUID;
+
 import com.minhquan.audit.AuditListener;
 import com.minhquan.audit.Auditable;
 import com.minhquan.model.SqlModel;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.ForeignKey;
@@ -28,7 +29,7 @@ import lombok.NoArgsConstructor;
 public class Product implements Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
 
     private String name;
 

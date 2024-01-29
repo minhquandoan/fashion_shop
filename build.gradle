@@ -10,15 +10,16 @@ allprojects {
     }
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
         toolchain {
-            languageVersion = JavaLanguageVersion.of(17)
+            languageVersion = JavaLanguageVersion.of(21)
         }
     }
 }
 
 dependencies {
+    implementation 'io.quarkus:quarkus-config-yaml'
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-arc'
     implementation project(':product-service')
@@ -41,6 +42,7 @@ subprojects {
         implementation 'io.quarkus:quarkus-rest-client-reactive-jackson'
         implementation 'io.quarkus.arc:arc'
         implementation 'io.quarkus:quarkus-smallrye-openapi'
+        implementation 'io.quarkus:quarkus-cache'
 
         compileOnly 'org.projectlombok:lombok:1.18.30'
         annotationProcessor 'org.projectlombok:lombok:1.18.30'
