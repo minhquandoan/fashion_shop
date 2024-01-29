@@ -1,0 +1,38 @@
+quarkus:
+  cache:
+    enabled: true
+  dev-ui:
+    cors:
+      enabled: false
+  http:
+    port: 22120
+    ssl:
+      native: true
+      certificate:
+        key-files: /Users/quandoan/Documents/m2_java_projects/fashion_shop/src/main/resources/.ssl/ca.key
+        files: /Users/quandoan/Documents/m2_java_projects/fashion_shop/src/main/resources/.ssl/ca.crt
+
+# Postgres Datasource
+  datasource:
+    db-kind: postgresql
+    username: admin
+    password: password
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/fashion-shop
+
+# Logging Configuration
+  log:
+    level: ${FS_LOG_LEVEL:DEBUG}
+    console: 
+      enable: true
+      level: DEBUG
+      format: "[%d{yyyy-MM-dd HH:mm:ss,SSS}][%p][%C][%M:%L]: %s%e%n"
+    file:
+      enable: true
+      path: ${FS_LOG_FILE_PATH:/Users/quandoan/Documents/m2_java_projects/fashion_shop/log_file/server.log}
+      format: "[%d{yyyy-MM-dd HH:mm:ss,SSS}][%p][%C][%M:%L]: %s%e%n"
+      rotation:
+        rotate-on-boot: false
+        file-suffix: ${FS_LOG_FILE_ROTATION_FILE_SUFFIX:.yyyy-MM-dd}
+        max-backup-index: ${FS_LOG_FILE_ROTATION_MAX_BACKUP_INDEX:100}
+        max-file-size: ${FS_LOG_FILE_ROTATION_MAX_FILE_SIZE:8M}
